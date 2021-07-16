@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--引入js文件-->
+<!--首先引入react核心库-->
+<script src="../../js/16.8/react.development.js"></script>
+<!--在引入react扩展  引入react-dom,用于支持react操作Dom-->
+<script src="../../js/16.8/react-dom.development.js"></script>
+<!--引入babel,用于将转为js-->
+<script src="../../js/16.8/babel.min.js"></script>
+<!--引入prop-types扩展, 用于对props进行类型验证-->
+<script src="../../js/16.8/prop-types.js"></script>
+
+<div id="test"></div>
+<div id="test1"></div>
+<script type="text/babel">
+    //创建类组件
+    class Person extends React.Component {
+
+        render() {
+            let {name,age,sex} = this.props
+
+            // this.props.name = 'Jack'//这里会报错,props 是只读的，不能修改他的内容
+            return <div>
+                <ul>
+                    <li>姓名:{name}</li>
+                    <li>性别:{sex}</li>
+                    <li>年龄:{age}</li>
+                </ul>
+            </div>
+        }
+        //对标签属性进行类型和必要性的限制
+        static propTypes = {
+            name:PropTypes.string.isRequired,//姓名，字符串类型，必填
+            age:PropTypes.number,//年龄，数字类型
+            sex:PropTypes.string,//性别，字符串类型
+            speak:PropTypes.func//speak 为函数类型
+        }
+        //设置标签属性的默认值
+        static defaultProps = {
+            sex:'保密',//性别默认值
+            age:18,//年龄默认值
+        }
+    }
+
+    //渲染到页面
+    ReactDOM.render(<Person name="TOM1" age="20" sex="男" speak={speak}/>,document.getElementById('test'))
+    ReactDOM.render(<Person name="TOM2" age="30" sex="女"/>,document.getElementById('test1'))
+
+    function speak () {
+
+    }
+</script>
+</body>
+</html>
